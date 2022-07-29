@@ -1,0 +1,152 @@
+<?php
+//on définit notre variable pour pouvoir inclure les fichier
+define("C2SCRIPT","peut être n'importe quoi ici");
+include("fonctions/fonctions.php");
+
+//on se connecte à la base de données (à adapter/remplacer avec votre système de connexion)
+/*
+$BDD = array();
+$BDD['serveur'] = "db.3wa.io";
+$BDD['login'] = "geraldsaintpierre";
+$BDD['pass'] = "da02434a969adcc42f4bf5eeb44fca06";
+$BDD['bdd'] = "geraldsaintpierre_votev1";
+$mysqli = mysqli_connect($BDD['serveur'],$BDD['login'],$BDD['pass'],$BDD['bdd']);
+if(!$mysqli) exit('Connexion MySQL non accomplie!');
+*/
+
+
+$BDD = array();
+$BDD['serveur'] = "localhost";
+$BDD['login'] = "root";
+$BDD['pass'] = "root";
+$BDD['bdd'] = "login";
+$mysqli = mysqli_connect($BDD['serveur'],$BDD['login'],$BDD['pass'],$BDD['bdd']);
+if(!$mysqli) exit('Connexion MySQL non accomplie!');
+
+
+  // Initialiser la session
+  session_start();
+ //  Vérifiez si l'utilisateur est connecté, sinon redirigez-le vers la page de connexion
+  if(!isset($_SESSION["username"])){
+  header("Location:../login.php");
+  exit(); // exit quitte met une page blanche !   
+  }
+  
+
+
+ 
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zerator_page</title>
+    <link href="../style.css" type="text/css" rel="stylesheet">
+    <link rel="icon" width="350%"href="../img/logo2.svg" type="image/svg">
+</head>
+
+<body class="backgroundcom" >  
+  <nav>
+
+        <div class="test"> 
+          
+            <ul class="un">
+             
+                <li>
+                  <input onkeyup="search_streamer()"  id="search" placeholder="Rechercher un streamer" >
+                  <a href="#"></a>
+                     <ul>
+                        <li><a href="DomingoPhp.php" class="r">Domingo</a></li>
+                        <li><a href="ZeratorPhp.php" class="r">Zerator</a></li>
+                        <li><a href="#" class="r">aminematue</a></li>
+                      <li><a href="#" class="r">Ponce</a></li>
+                      
+                     </ul>
+                  </input>
+                </li>
+             </ul>
+</div>
+ <div class="test">
+            <ul class="un"> 
+                <li><a href="../indexC.php"><strong><img class="imagenav" src="../img/logo1.svg"  height="110px"></strong></a>
+                    <ul>
+                        <li><a href="login.php"></a></li>
+                        <li><a href="#"></a></li>
+                        <li><a href="contact.html"></a></li>
+                    </ul>
+                </li>
+            </ul>
+</div>
+<div class="test">
+             <ul class="un">
+                <li><a href="#"><strong class="txtcompte"><?php echo $_SESSION['username']?></strong></a>
+                    <ul>
+                        <li><a href="../logout.php">se déconnecter</a></li>
+                        <li><a href="#"></a></li>
+                        <li><a href="contact.html">contact</a></li>
+                    </ul>
+                </li>
+            </ul>
+</div>
+</div>
+</nav>
+</body>
+    
+
+    <div class="espace_commentaire" style="">
+<div class="streamcom">
+  
+     <iframe id="streamcom1"src="https://player.twitch.tv/?channel=ZERATOR&parent=localhost" height="700px" width="90%" preload> <!-- it's work !!!! -->
+        
+     </iframe>
+     </div>
+  <div class="commentaire">
+    <div class="centrecommentaire">
+     <h1>Tu penses quoi de Zerator ?</h1>
+     <p>Merci d'etre constructif !!</p>
+	<h2>Écrire un commentaire</h2>
+     </div>
+	<?php
+	//$zerator=un chiffre par exemple 123 (pour la base de donnée)
+	//on affiche le formulaire pour poster un commentaire
+	afficherFormulaireCommentaire("ZeratorPhp.php",123);// indiquer la page actuelle avec ou sans query du type ?id=123&... et l'id de la'rticle pour affiche les commentaire de cette article seulement, si vous utilisez ce système de commentaire pour un livre d'or par exemple, vous pouvez l'enlever et mettre seulement la page actuelle: afficherFormulaireCommentaire("page.php");
+	?>
+    <div class="centrecommentaire">
+	<h2>Commentaires postés</h2>
+     </div>
+	<?php
+	afficherCommentaires(123);// 1 est une valeur qui permet de faire le lien entre les pages 
+    ?>
+
+
+
+  </div>
+
+<?php
+/*
+if ($_SESSION['username']==true)
+{
+    echo $_SESSION['username'];
+}
+else 
+{
+    
+    echo "<div>testtest</div>";
+}
+*/
+?>
+
+
+ 
+<footer class="footerall" style="">
+<div class="footer_1" style="">
+     <div> &copy; Gérald Saint-Pierre Tout droits réserver </div>
+     <div>Mentions Légales</div>
+</div>
+   </footer>
+     </div>
+
+</html>
